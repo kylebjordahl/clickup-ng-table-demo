@@ -1,0 +1,43 @@
+:host {
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  scrollbar-width: thin;
+}
+
+.county-item {
+  height: 24px;
+  width: 100%;
+}
+
+.county-list {
+  scrollbar-width: thin;
+}
+
+.column {
+  display: block;
+  box-sizing: border-box;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+  height: 100%;
+}
+
+.cell {
+  padding: 4px;
+  flex-grow: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-row {
+  border-bottom: 1px solid grey;
+  & .cell:last-of-type {
+    // pads for the scroller, should be improved somehow
+    padding-right: 15px;
+  }
+}
+
+.row.even {
+  background-color: aquamarine;
+}

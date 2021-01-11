@@ -1,0 +1,67 @@
+<div
+  class="header-row"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxFlex="36px"
+>
+  <div
+    *ngFor="let column of columns"
+    fxLayoutAlign="start center"
+    class="column column-header"
+  >
+    <div
+      fxFlex="initial"
+      class="header cell"
+      [ngStyle]="column | cellStyle"
+      [title]="column.description"
+      fxLayoutAlign="start baseline"
+      fxLayout="row"
+      (click)="setSort(column.id, sort)"
+    >
+      <span fxFill>
+        {{ column.title }}
+      </span>
+      <ng-container *ngIf="sort?.columnId === column.id">
+        <ng-container *ngIf="sort.order === ORDER.Asc; else descTemplate">
+          ⇡
+        </ng-container>
+        <ng-template #descTemplate>⇣</ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- virtual scroll for rows -->
+<cdk-virtual-scroll-viewport [itemSize]="24" class="county-list" fxFlex>
+  <ng-container
+    *cdkVirtualFor="let county of counties | sortCounties: sort; index as i"
+  >
+    <ng-container
+      *ngTemplateOutlet="rowTemplate; context: { county: county, index: i }"
+    ></ng-container>
+  </ng-container>
+</cdk-virtual-scroll-viewport>
+
+<ng-template #rowTemplate let-county="county" let-index="index">
+  <div
+    class="county-item row"
+    [class.even]="index % 2"
+    fxLayout="row"
+    fxLayoutAlign="start stretch"
+  >
+    <div
+      *ngFor="let column of columns"
+      fxLayoutAlign="start stretch"
+      class="column column-cell"
+    >
+      <div
+        fxFlex="initial"
+        class="cell"
+        [ngStyle]="column | cellStyle"
+        [title]="column.description"
+      >
+        {{ column.display(county) }}
+      </div>
+    </div>
+  </div>
+</ng-template>
