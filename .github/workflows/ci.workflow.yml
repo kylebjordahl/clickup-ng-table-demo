@@ -37,6 +37,7 @@ jobs:
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
 
+      # not recommended in repos with complex dependencies
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
@@ -104,6 +105,7 @@ jobs:
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
 
+      # not recommended in repos with complex dependencies
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
@@ -159,6 +161,7 @@ jobs:
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
 
+      # not recommended in repos with complex dependencies
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
