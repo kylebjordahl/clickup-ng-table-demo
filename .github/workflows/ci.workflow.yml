@@ -106,13 +106,14 @@ jobs:
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
 
       # not recommended in repos with complex dependencies
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-
+      # temporarily skip cache on e2e to fix workflow
+      # - name: Cache node_modules
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ./node_modules
+      #     key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node_modules-
 
       - name: Cache npm
         uses: actions/cache@v2
