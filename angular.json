@@ -86,7 +86,12 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "cname": "",
+            "baseHref": "/clickup-ng-table-demo/",
+            "name": "Automated Pages Deploy",
+            "email": "kylebjordahl+automated-deploy-clickup-ng-table-demo@gmail.com"
+          }
         }
       }
     },
