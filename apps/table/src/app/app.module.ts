@@ -13,7 +13,8 @@ import { CellStylePipe } from './components/county-list/pipes/cell-style.pipe'
 import { AppState } from './state/app.state'
 import { columnsReducer } from './state/columns.reducer'
 import { sortReducer } from './state/sort.reducer'
-import { SortCountyDataPipe } from './components/county-list/pipes/sort.pipe'
+import { SortCountyDataPipe } from './components/county-list/pipes/sort.pipe';
+import { ResizableDirective } from './components/county-list/directives/resizable.directive'
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SortCountyDataPipe } from './components/county-list/pipes/sort.pipe'
     CountyListComponent,
     CellStylePipe,
     SortCountyDataPipe,
+    ResizableDirective,
   ],
   imports: [
     BrowserModule,
