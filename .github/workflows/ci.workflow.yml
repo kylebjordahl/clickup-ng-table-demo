@@ -23,6 +23,8 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"
 
     steps:
+      - uses: actions/checkout@v1
+
       # this is my own custom hack to find the last successful time this job was run
       - name: Find last successful deployment
         id: last_deployment
@@ -34,8 +36,6 @@ jobs:
           LAST_DEPLOY_SHA=$(echo $LAST_DEPLOY | grep -Eo '"head_sha":.*?[^\\]",' | awk -F '"' '{print $4}')
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
-
-      - uses: actions/checkout@v1
 
       - name: Cache node_modules
         uses: actions/cache@v2
@@ -90,6 +90,8 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"
 
     steps:
+      - uses: actions/checkout@v1
+
       # this is my own custom hack to find the last successful time this job was run
       - name: Find last successful deployment
         id: last_deployment
@@ -101,8 +103,6 @@ jobs:
           LAST_DEPLOY_SHA=$(echo $LAST_DEPLOY | grep -Eo '"head_sha":.*?[^\\]",' | awk -F '"' '{print $4}')
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
-
-      - uses: actions/checkout@v1
 
       - name: Cache node_modules
         uses: actions/cache@v2
@@ -145,6 +145,8 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip-ci]') && !contains(github.event.head_commit.message, '[skip-deploy]')"
 
     steps:
+      - uses: actions/checkout@v1
+
       # this is my own custom hack to find the last successful time this job was run
       - name: Find last successful deployment
         id: last_deployment
@@ -156,8 +158,6 @@ jobs:
           LAST_DEPLOY_SHA=$(echo $LAST_DEPLOY | grep -Eo '"head_sha":.*?[^\\]",' | awk -F '"' '{print $4}')
           INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
           echo "::set-output name=sha::${LAST_DEPLOY_SHA:-${INITIAL_COMMIT:-HEAD~1}}"
-
-      - uses: actions/checkout@v1
 
       - name: Cache node_modules
         uses: actions/cache@v2
