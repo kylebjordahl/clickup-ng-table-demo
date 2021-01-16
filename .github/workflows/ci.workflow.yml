@@ -122,6 +122,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
 
+      # also need to cache cypress in this step
+      - name: Cache Cypres Executable
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
       - name: install node v14
         uses: actions/setup-node@v1
         with:
