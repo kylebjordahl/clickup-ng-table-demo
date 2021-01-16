@@ -5,5 +5,7 @@
     [columns]="columns$ | async"
     [sort]="sort$ | async"
     (sortChange)="onSort($event)"
+    (filterChange)="onFilterChange($event)"
+    (columnOrderChange)="onColumnOrderChange($event)"
   ></table-demo-county-list>
 </ng-container>

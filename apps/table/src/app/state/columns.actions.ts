@@ -3,8 +3,14 @@ import {
   Column,
   SortOrder,
 } from '../components/county-list/models/column.model'
+import { FilterValueChange } from '../components/county-list/models/output.interfaces'
 
 export const reorderColumnList = createAction(
   '[Columns] Reordered',
-  props<{ columns: Column[] }>()
+  props<{ columnIds: Column['id'][] }>()
+)
+
+export const setColumnFilter = createAction(
+  '[Column] Filtered',
+  props<FilterValueChange>()
 )

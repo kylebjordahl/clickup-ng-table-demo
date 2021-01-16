@@ -9,7 +9,10 @@ export function parseCountyCsv(csv: string): Array<County> {
   try {
     const rows = csv.split('\n')
     const counties = rows.slice(1).map((r) => {
-      const values = r.trim().split(',')
+      const values = r
+        .trim()
+        .split(',')
+        .map((v) => v.trim())
       const county = <County>{
         date: new Date(values[0]),
         county: values[1],

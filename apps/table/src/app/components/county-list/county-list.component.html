@@ -2,47 +2,85 @@
   class="header-row"
   fxLayout="row"
   fxLayoutAlign="start center"
-  fxFlex="36px"
+  fxFlex="initial"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="columnDrop($event)"
 >
   <div
-    *ngFor="let column of columns"
+    *ngFor="let column of columns; trackBy: trackColumns"
     fxLayoutAlign="start center"
     class="column column-header"
+    [class.filter-active]="column.filterValue.length > 0"
+    cdkDrag
+    (cdkDragStarted)="startDragging()"
+    (cdkDragReleased)="stopDragging()"
   >
     <div
-      fxFlex="initial"
-      class="header cell"
+      [class]="'header cell ' + column.id"
       [ngStyle]="column | cellStyle"
       [title]="column.description"
-      fxLayoutAlign="start baseline"
       fxLayout="row"
-      (click)="setSort(column.id, sort)"
+      fxLayoutAlign="start baseline"
+      fxLayoutGap=".4rem"
     >
-      <span fxFill>
+      <!-- primary header content -->
+      <div class="overflow" cdkDragHandle>
         {{ column.title }}
-      </span>
-      <ng-container *ngIf="sort?.columnId === column.id">
-        <ng-container *ngIf="sort.order === ORDER.Asc; else descTemplate">
+      </div>
+      <div fxFlex>
+        <input
+          type="text"
+          class="filter-input"
+          placeholder="filter"
+          [value]="column.filterValue"
+          (input)="setFilter(column.id, $event)"
+        />
+      </div>
+      <div
+        fxFlex=".2rem"
+        class="sort"
+        [class.placeholder]="sort?.columnId !== column.id"
+        (click)="setSort(column.id, sort)"
+      >
+        <div
+          [class.invert]="
+            sort?.order === ORDER.Desc && sort?.columnId === column.id
+          "
+        >
           ⇡
-        </ng-container>
-        <ng-template #descTemplate>⇣</ng-template>
-      </ng-container>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- virtual scroll for rows -->
 <cdk-virtual-scroll-viewport [itemSize]="24" class="county-list" fxFlex>
-  <ng-container
-    *cdkVirtualFor="let county of counties | sortCounties: sort; index as i"
-  >
+  <div [ngClass]="{ blurable: true, blurred: isDraggingColumn }">
     <ng-container
-      *ngTemplateOutlet="rowTemplate; context: { county: county, index: i }"
-    ></ng-container>
-  </ng-container>
+      *cdkVirtualFor="let county of counties | sortCounties: sort; index as i"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          rowTemplate;
+          context: { county: county, index: i, columns: columns }
+        "
+      ></ng-container>
+    </ng-container>
+  </div>
 </cdk-virtual-scroll-viewport>
+<div class="footer" fxLayoutAlign="start baseline" fxLayoutGap="1rem">
+  <span>Total items: {{ counties.length }}</span
+  ><span> is dragging {{ isDraggingColumn }}</span>
+</div>
 
-<ng-template #rowTemplate let-county="county" let-index="index">
+<ng-template
+  #rowTemplate
+  let-county="county"
+  let-index="index"
+  let-visibleColumns="columns"
+>
   <div
     class="county-item row"
     [class.even]="index % 2"
@@ -50,9 +88,10 @@
     fxLayoutAlign="start stretch"
   >
     <div
-      *ngFor="let column of columns"
+      *ngFor="let column of visibleColumns; trackBy: trackColumns"
       fxLayoutAlign="start stretch"
-      class="column column-cell"
+      [class]="'column column-cell ' + column.id"
+      [class.filter-active]="column.filterValue.length > 0"
     >
       <div
         fxFlex="initial"

@@ -1,7 +1,9 @@
 import { createSelector } from '@ngrx/store'
-import type { County } from '../api.types'
-import { Column, Sort } from '../components/county-list/models/column.model'
-import { AppState } from './app.state'
+import type {
+  Column,
+  Sort,
+} from '../components/county-list/models/column.model'
+import type { AppState } from './app.state'
 import { selectColumns } from './columns.selector'
 
 export const selectSort = createSelector(

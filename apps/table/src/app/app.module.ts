@@ -7,6 +7,7 @@ import { countiesReducer } from './state/counties.reducer'
 import { CountyListComponent } from './components/county-list/county-list.component'
 import { HttpClientModule } from '@angular/common/http'
 import { ScrollingModule } from '@angular/cdk/scrolling'
+import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { CellStylePipe } from './components/county-list/pipes/cell-style.pipe'
 import { AppState } from './state/app.state'
@@ -23,6 +24,7 @@ import { SortCountyDataPipe } from './components/county-list/pipes/sort.pipe'
   ],
   imports: [
     BrowserModule,
+    DragDropModule,
     FlexLayoutModule,
     HttpClientModule,
     ScrollingModule,

@@ -1,8 +1,19 @@
+// color scheme
+$dark: #222831;
+$mid: #30475e;
+$accent: #f05454;
+$light: #dddddd;
+
+$border: rgba(darken($light, 10%), 50%);
+$evenRow: $mid;
+$oddRow: darken($mid, 4%);
+
 :host {
   flex-direction: column;
   height: 100%;
-  width: 100%;
+  // width: 100%;
   scrollbar-width: thin;
+  background-color: $dark;
 }
 
 .county-item {
@@ -17,27 +28,124 @@
 .column {
   display: block;
   box-sizing: border-box;
-  border-right: 1px solid grey;
-  border-left: 1px solid grey;
+  border-right: 1px solid $border;
+  border-left: 1px solid $border;
   height: 100%;
 }
 
 .cell {
-  padding: 4px;
+  margin-left: 0.2rem;
+  padding: 0.2rem;
   flex-grow: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.header-row {
-  border-bottom: 1px solid grey;
+.header-row .column {
+  display: inline-block;
+  color: darken($dark, 10%);
+  font-size: large;
+  font-weight: 500;
+  background: $accent;
+  border-bottom: 1px solid $border;
+  height: 2.4rem;
+
+  & .cell {
+    min-height: 2rem;
+    cursor: grab;
+    box-sizing: border-box;
+    display: inline-block;
+
+    .filter-input {
+      width: 95%;
+    }
+  }
   & .cell:last-of-type {
     // pads for the scroller, should be improved somehow
     padding-right: 15px;
   }
 }
 
-.row.even {
-  background-color: aquamarine;
+.row {
+  transition: ease-in-out 100ms;
+  color: $light;
+  .column {
+    background-color: $oddRow;
+    border-bottom: 1px solid $border;
+  }
+  &:hover .column,
+  &.even:hover .column {
+    background-color: lighten($evenRow, 7%);
+  }
+
+  &.even .column {
+    background-color: $evenRow;
+  }
+}
+
+.footer {
+  background-color: $dark;
+  color: $light;
+  font-size: small;
+  span {
+    padding: 0.2rem;
+  }
+}
+
+.sort {
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+  transition: ease-in-out 200ms;
+  &.placeholder {
+    transition: ease-in-out 200ms;
+    opacity: 30%;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  & .invert {
+    transition: ease-in-out 200ms;
+    transform: scaleY(-1);
+  }
+}
+
+.filter-input {
+  background-color: transparent;
+}
+
+.filter-active {
+  filter: brightness(120%);
+}
+
+// utility
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blurable {
+  transition: ease-in-out 100ms;
+  &.blurred {
+    filter: blur(4px);
+  }
+}
+
+.foldable {
+  transition: ease-in-out 100ms;
+  &.folded {
+    transform: scaleY(0);
+  }
+}
+
+// cdk drag drop
+.cdk-drag-preview {
+  background: $accent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
