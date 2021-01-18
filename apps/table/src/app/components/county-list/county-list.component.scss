@@ -53,13 +53,15 @@ $oddRow: darken($mid, 4%);
 
   & .cell {
     min-height: 2rem;
-    cursor: grab;
     box-sizing: border-box;
     display: inline-block;
   }
   & .cell:last-of-type {
     // pads for the scroller, should be improved somehow
     padding-right: 15px;
+  }
+  & [cdkDragHandle] {
+    cursor: grab;
   }
 }
 
