@@ -1,8 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import {
-  Column,
-  SortOrder,
-} from '../components/county-list/models/column.model'
+import { Column } from '../components/county-list/models/column.model'
 import { FilterValueChange } from '../components/county-list/models/output.interfaces'
 
 export const reorderColumnList = createAction(
