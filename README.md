@@ -2,6 +2,8 @@
 
 ![CI](https://github.com/kylebjordahl/clickup-ng-table-demo/workflows/CI/badge.svg)
 
+### [Hosted Version](https://kylebjordahl.github.io/clickup-ng-table-demo/)
+
 Demonstration of an Angular table component with:
 
 - HTTP sourced content (NYT Live Covid-19 data)
