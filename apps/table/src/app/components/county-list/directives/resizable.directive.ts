@@ -10,6 +10,7 @@ import {
 } from 'rxjs/operators'
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[resizable]',
 })
 export class ResizableDirective {
